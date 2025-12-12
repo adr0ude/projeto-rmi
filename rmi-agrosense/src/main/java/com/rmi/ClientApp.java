@@ -43,7 +43,7 @@ public class ClientApp {
                                 System.out.println("Enviando leitura de luminosidade...");
                                 input.readValue(lightController.readData());
 
-                                Thread.sleep(3000);
+                                Thread.sleep(30000);
                         }
                 } catch (java.rmi.ConnectException e) {
                         System.err.println(

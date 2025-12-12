@@ -6,6 +6,8 @@ import java.rmi.registry.Registry;
 import com.rmi.commons.interfaces.AlertsControl;
 import com.rmi.alerts.interfaces.AlertsControlImpl;
 
+import com.rmi.alerts.http.AlertsHttpInitializer;
+
 public class AlertsServerApp {
 
     private static final int RMI_PORT = 3001;
@@ -20,7 +22,10 @@ public class AlertsServerApp {
 
             registry.rebind("AlertsService", alertsService);
 
-            System.out.println("Serviço de Alertas RMI (AlertsService) pronto.");
+            AlertsHttpInitializer httpService = new AlertsHttpInitializer();
+            httpService.start();
+
+            System.out.println("Servidor de Alertas (RMI & HTTP) pronto.");
 
         } catch (Exception e) {
             System.err.println("Erro ao iniciar o Alerts Server:");
