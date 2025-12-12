@@ -50,7 +50,7 @@ Este é o componente que consome as notificações e as expõe ao _frontend_.
 | `http`           | Implementa o `AlertsHttpInitializer` (Javalin), que expõe o histórico de alertas (`Alert.java`) via API REST/JSON na porta **4568**.      |
 | `App.java`       | Inicia o servidor RMI de Alertas e o Servidor HTTP.                                                                                       |
 
---- |
+---
 
 ### 4. Clientes Sensores (`rmi-agrosense`)
 
