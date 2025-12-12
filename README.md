@@ -43,9 +43,6 @@ Este módulo atua como o Hub Central de Agregação e Distribuição de Dados no
 
 Este é o componente que consome as notificações e as expõe ao _frontend_.
 
-| Diretório | Descrição da Responsabilidade |
-| :-------- | :---------------------------- |
-
 | Diretório        | Descrição da Responsabilidade                                                                                                             |
 | :--------------- | :---------------------------------------------------------------------------------------------------------------------------------------- |
 | **`interfaces`** | Contém a implementação da interface RMI (`AlertsControl`) que permite ao Sensor Aggregation Hub disparar as notificações de forma remota. |
