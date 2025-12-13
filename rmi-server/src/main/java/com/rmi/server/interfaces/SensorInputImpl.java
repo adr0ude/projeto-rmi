@@ -27,7 +27,7 @@ public class SensorInputImpl extends UnicastRemoteObject implements SensorInput 
             System.out.println("Conectado ao Serviço de Alerta RMI (AlertsService) na porta " + ALERTS_RMI_PORT);
         } catch (Exception e) {
             System.err.println("Não foi possível conectar ao AlertsService. Alertas desativados.");
-            System.err.println("   Certifique-se de que rmi-alerts está rodando na porta " + ALERTS_RMI_PORT);
+            System.err.println("Certifique-se de que rmi-alerts está rodando na porta " + ALERTS_RMI_PORT);
             this.alertsService = null;
         }
     }
@@ -35,7 +35,7 @@ public class SensorInputImpl extends UnicastRemoteObject implements SensorInput 
     @Override
     public void readValue(SensorData data) throws RemoteException {
 
-        System.out.printf("[LOG CAT] Dado recebido de %s: %s = %.2f\n",
+        System.out.printf("[LOG] Dado recebido de %s: %s = %.2f\n",
                 data.getId(), data.getType(), data.getValue());
 
         db.addReading(data);

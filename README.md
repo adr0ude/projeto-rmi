@@ -21,7 +21,7 @@ Contém as interfaces e modelos de dados necessários para a comunicação RMI. 
 | `interfaces` | Contém os contratos RMI (interfaces) que definem os métodos remotos: `SensorInput`, `SensorQuery`, `AlertsControl`. |
 | `model`      | Contém as classes de dados serializáveis (`SensorData`, `AvgData`, `Alert`) trocadas entre os módulos.              |
 
-### 2. Sensor Aggregation Hub (`rmi-server`)
+### 2. Serviço de Processamento de Sensores (`rmi-server`)
 
 Este módulo atua como o Hub Central de Agregação e Distribuição de Dados no sistema. Ele centraliza a lógica de negócios e o armazenamento do estado do sistema.
 
@@ -43,18 +43,18 @@ Este módulo atua como o Hub Central de Agregação e Distribuição de Dados no
 
 Este é o componente que consome as notificações e as expõe ao _frontend_.
 
-| Diretório        | Descrição da Responsabilidade                                                                                                             |
-| :--------------- | :---------------------------------------------------------------------------------------------------------------------------------------- |
-| **`interfaces`** | Contém a implementação da interface RMI (`AlertsControl`) que permite ao Sensor Aggregation Hub disparar as notificações de forma remota. |
-| `services`       | Implementa o serviço `AlertsServiceImpl` (o RMI Callback), que recebe as notificações e as registra em um histórico.                      |
-| `http`           | Implementa o `AlertsHttpInitializer` (Javalin), que expõe o histórico de alertas (`Alert.java`) via API REST/JSON na porta **4568**.      |
-| `App.java`       | Inicia o servidor RMI de Alertas e o Servidor HTTP.                                                                                       |
+| Diretório        | Descrição da Responsabilidade                                                                                                                                 |
+| :--------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| **`interfaces`** | Contém a implementação da interface RMI (`AlertsControl`) que permite ao Serviço de Processamento de Sensores (SPS) disparar as notificações de forma remota. |
+| `services`       | Implementa o serviço `AlertsServiceImpl` (o RMI Callback), que recebe as notificações e as registra em um histórico.                                          |
+| `http`           | Implementa o `AlertsHttpInitializer` (Javalin), que expõe o histórico de alertas (`Alert.java`) via API REST/JSON na porta **4568**.                          |
+| `App.java`       | Inicia o servidor RMI de Alertas e o Servidor HTTP.                                                                                                           |
 
 ---
 
 ### 4. Clientes Sensores (`rmi-agrosense`)
 
-Este módulo simula o comportamento dos sensores, enviando dados para o Sensor Aggregation Hub.
+Este módulo simula o comportamento dos sensores, enviando dados para o SPS.
 
 - **Função Principal:** Cria e executa instâncias de sensores, chamando o método remoto (`sendData`) do Servidor CAT a cada 30 segundos.
 
