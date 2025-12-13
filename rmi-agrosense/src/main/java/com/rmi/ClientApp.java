@@ -47,7 +47,7 @@ public class ClientApp {
                         }
                 } catch (java.rmi.ConnectException e) {
                         System.err.println(
-                                        "ERRO RMI: Falha ao conectar. O Servidor PSP (ServerApp) está rodando na porta 3000?");
+                                        "ERRO RMI: Falha ao conectar. O Servidor SPS (ServerApp) está rodando na porta 3000?");
                 } catch (java.rmi.NotBoundException e) {
                         System.err.println("ERRO RMI: Serviço 'SensorInput' não encontrado no Registry.");
                 } catch (Exception e) {

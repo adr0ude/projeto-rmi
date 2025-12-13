@@ -24,7 +24,7 @@ public class HttpServerInitializer {
         });
 
         app.get("/status", ctx -> {
-            ctx.result("Servidor PSP (RMI & HTTP) funcionando corretamente.");
+            ctx.result("Servidor SPS (RMI & HTTP) funcionando corretamente.");
         });
 
         app.get("/api/v1/averages/{sensorId}/{type}", ctx -> {
