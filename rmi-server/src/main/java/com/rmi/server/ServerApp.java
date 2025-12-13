@@ -20,7 +20,7 @@ public class ServerApp {
             HttpServerInitializer httpService = new HttpServerInitializer();
             httpService.start();
 
-            System.out.println("Servidor CAT (RMI & HTTP) pronto.");
+            System.out.println("Servidor PSP (RMI & HTTP) pronto.");
         } catch (Exception e) {
             System.err.println("Erro ao iniciar o servidor: " + e.getMessage());
             e.printStackTrace();

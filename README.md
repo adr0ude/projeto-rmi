@@ -56,15 +56,15 @@ Este é o componente que consome as notificações e as expõe ao _frontend_.
 
 Este módulo simula o comportamento dos sensores, enviando dados para o SPS.
 
-- **Função Principal:** Cria e executa instâncias de sensores, chamando o método remoto (`sendData`) do Servidor CAT a cada 30 segundos.
+- **Função Principal:** Cria e executa instâncias de sensores, chamando o método remoto (`sendData`) do Servidor PSP a cada 30 segundos.
 
 | Diretório     | Descrição da Responsabilidade                                                                                                                                |
 | :------------ | :----------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **`client`**  | Contém a classe principal (`SensorClient`) que realiza a conexão com o RMI Registry, localiza o _stub_ do Servidor CAT e chama o método remoto (`sendData`). |
+| **`client`**  | Contém a classe principal (`SensorClient`) que realiza a conexão com o RMI Registry, localiza o _stub_ do Servidor PSP e chama o método remoto (`sendData`). |
 | **`sensors`** | Contém a lógica de simulação para gerar leituras de dados realistas (classes como `TemperatureSensor`, `PhSensor`, etc.).                                    |
 | `App.java`    | O ponto de entrada que inicializa as simulações e começa o loop de envio de dados a cada 30 segundos.                                                        |
 
-**Função Principal:** Cria e executa instâncias de sensores, chamando o método remoto (`sendData`) do Servidor CAT a cada 60 segundos.
+**Função Principal:** Cria e executa instâncias de sensores, chamando o método remoto (`sendData`) do Servidor PSP a cada 60 segundos.
 
 ---
 
@@ -85,10 +85,10 @@ Este módulo simula o comportamento dos sensores, enviando dados para o SPS.
 A execução deve seguir a ordem de dependência para garantir que os _services_ necessários estejam no RMI Registry:
 
 1.  **Serviço de Alertas:** Execute o `AlertsApp.java` (inicia RMI e HTTP 4568).
-2.  **Servidor CAT:** Execute o `ServerApp.java` (inicia RMI Registry 3000, RMI Services e HTTP 4567).
+2.  **Servidor PSP:** Execute o `ServerApp.java` (inicia RMI Registry 3000, RMI Services e HTTP 4567).
 3.  **Clientes Sensores:** Execute o `App.java` (simula sensores enviando dados).
 
-O _frontend_ pode então consultar o Servidor CAT (`:4567`) para os dados de medição e o Servidor de Alertas (`:4568`) para o histórico de notificações.
+O _frontend_ pode então consultar o Servidor PSP (`:4567`) para os dados de medição e o Servidor de Alertas (`:4568`) para o histórico de notificações.
 
 ## Equipe
 
