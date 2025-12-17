@@ -2,6 +2,7 @@ package com.rmi.server.http;
 
 import io.javalin.Javalin;
 import com.rmi.server.model.SensorDatabase;
+import io.javalin.plugin.bundled.CorsPluginConfig;
 
 public class HttpServerInitializer {
 
@@ -14,13 +15,16 @@ public class HttpServerInitializer {
 
     public void start() {
 
-        Javalin app = Javalin.create().start(HTTP_PORT);
+        Javalin app = Javalin.create(config -> {
+            config.plugins.enableCors(cors -> {
+                cors.add(CorsPluginConfig::anyHost);
+            });
+        }).start(HTTP_PORT);
 
         System.out.println("Servidor HTTP/JSON (Javalin) iniciado na porta " + HTTP_PORT);
 
         app.get("/api/v1/averages", ctx -> {
-            var averages = db.getAllLastAverages();
-            ctx.json(averages);
+            ctx.json(db.getAllLastAverages().values());
         });
 
         app.get("/status", ctx -> {

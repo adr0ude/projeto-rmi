@@ -4,7 +4,7 @@ import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 
 import com.rmi.commons.interfaces.AlertsControl;
-import com.rmi.alerts.interfaces.AlertsControlImpl;
+import com.rmi.alerts.services.AlertsServiceImpl;
 
 import com.rmi.alerts.http.AlertsHttpInitializer;
 
@@ -18,7 +18,7 @@ public class AlertsServerApp {
 
             Registry registry = LocateRegistry.createRegistry(RMI_PORT);
 
-            AlertsControl alertsService = new AlertsControlImpl();
+            AlertsControl alertsService = new AlertsServiceImpl();
 
             registry.rebind("AlertsService", alertsService);
 

@@ -53,52 +53,47 @@ public class SensorInputImpl extends UnicastRemoteObject implements SensorInput 
 
         String type = avg.getType();
         double value = avg.getValue();
+        String sensorId = avg.getId(); // Capturamos o ID do sensor que gerou a média
         String alertaMsg = null;
 
+        // 1. Padronização da Temperatura
         if (type.equals("temperature")) {
             if (value > 40.0) {
-                alertaMsg = "CRÍTICO! Temperatura (" + value + "°C) muito alta. Acima de 40°C.";
+                alertaMsg = "ALERTA: Temperatura CRÍTICA detectada no sensor " + sensorId + ": " + value
+                        + "°C. Acima de 40°C.";
             } else if (value >= 32.0) {
-                alertaMsg = "ATENÇÃO! Temperatura elevada (" + value + "°C). Faixa de 32°C a 40°C.";
+                alertaMsg = "ALERTA: Temperatura elevada detectada no sensor " + sensorId + ": " + value + "°C.";
             }
-        } else if (type.equals("humidity")) {
+        }
+        // 2. Padronização da Umidade (Igual à sua segunda imagem)
+        else if (type.equals("humidity")) {
             if (value < 30.0) {
-                alertaMsg = "Umidade muito baixa (" + value + "%). Risco de ressecamento.";
+                alertaMsg = "ALERTA: Umidade muito baixa detectada no sensor " + sensorId + ": " + value + "%";
             } else if (value > 80.0) {
-                alertaMsg = "Umidade muito alta (" + value + "%). Risco de fungos.";
+                alertaMsg = "ALERTA: Umidade muito alta detectada no sensor " + sensorId + ": " + value + "%";
             }
-        } else if (type.equals("ph")) {
-            String situacao;
-
-            if (value < 5.5) {
-                situacao = "Solo muito ácido";
-            } else if (value < 6.5) {
-                situacao = "Solo levemente ácido";
-            } else if (value <= 7.5) {
-                situacao = "Solo neutro";
-            } else {
-                situacao = "Solo alcalino";
-            }
-
+        }
+        // 3. Padronização do pH
+        else if (type.equals("ph")) {
             if (value < 5.5 || value > 7.5) {
-                alertaMsg = "ALERTA pH! Média (" + value + "). Classificação: " + situacao;
+                String situacao = (value < 5.5) ? "Solo muito ácido" : "Solo alcalino";
+                alertaMsg = "ALERTA: pH fora da faixa ideal no sensor " + sensorId + ": " + value + " (" + situacao
+                        + ")";
             }
-
-            System.out.println("[LOG CAT] PH Médio: " + value + ". Situação do Solo: " + situacao);
-        } else if (type.equals("luminosity")) {
+        }
+        // 4. Padronização da Luminosidade
+        else if (type.equals("luminosity")) {
             if (value < 100.0) {
-                alertaMsg = "Baixa Luminosidade (" + value + "). Necessário acionar luzes de apoio.";
+                alertaMsg = "ALERTA: Baixa luminosidade detectada no sensor " + sensorId + ": " + value
+                        + ". Acionar luzes.";
             } else if (value > 900.0) {
-                alertaMsg = "Alta Luminosidade (" + value + "). Necessário sombreamento.";
-            }
-
-            if (alertaMsg == null) {
-                System.out.println("[LOG CAT] Luminosidade média calculada: " + value);
+                alertaMsg = "ALERTA: Alta luminosidade detectada no sensor " + sensorId + ": " + value
+                        + ". Sombreamento necessário.";
             }
         }
 
         if (alertaMsg != null) {
-            System.out.println("Disparando ALERTA RMI para o AlertsService...");
+            System.out.println("[RMI] Disparando alerta padronizado para: " + sensorId);
             alertsService.notifyAlert(type, alertaMsg);
         }
     }
